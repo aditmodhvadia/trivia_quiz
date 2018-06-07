@@ -66,8 +66,9 @@ class _mainBody extends StatelessWidget {
                   padding: const EdgeInsets.only(
                       top: 240.0, left: 20.0, right: 20.0),
                   child: new RaisedButton(
-                      onPressed: null,
-                      color: Theme.of(context).accentColor,
+                      onPressed: (){
+                      },
+                      color: Colors.redAccent,
                       elevation: 4.0,
                       splashColor: Colors.blueAccent,
                       shape: new RoundedRectangleBorder(
@@ -78,7 +79,7 @@ class _mainBody extends StatelessWidget {
                           child: Text(
                             'Sign-In',
                             textAlign: TextAlign.center,
-                            style: TextStyle(color: Colors.red ,fontSize: 30.0),
+                            style: TextStyle(color: Colors.black ,fontSize: 30.0),
                           ),
                         ),
                       )),
@@ -89,8 +90,10 @@ class _mainBody extends StatelessWidget {
                   padding: const EdgeInsets.only(
                       top: 240.0, left: 20.0, right: 20.0),
                   child: new RaisedButton(
-                      onPressed: null,
-                      color: Theme.of(context).accentColor,
+                      onPressed: (){
+
+                      },
+                      color: Colors.redAccent,
                       elevation: 4.0,
                       splashColor: Colors.blueAccent,
                       shape: new RoundedRectangleBorder(
@@ -101,7 +104,7 @@ class _mainBody extends StatelessWidget {
                           child: Text(
                             'Sign-Up',
                             textAlign: TextAlign.center,
-                            style: TextStyle(color: Colors.red ,fontSize: 30.0),
+                            style: TextStyle(color: Colors.black ,fontSize: 30.0),
                           ),
                         ),
                       )),
@@ -113,4 +116,5 @@ class _mainBody extends StatelessWidget {
       )
     ]);
   }
+
 }
