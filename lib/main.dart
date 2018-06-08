@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import './pages/sign_up.dart';
+import './pages/sign_in.dart';
+
 
 void main() {
   runApp(MainApp());
@@ -31,12 +34,12 @@ class _mainBody extends StatelessWidget {
           Center(
             child: new Padding(
               padding:
-                  const EdgeInsets.only(top: 80.0, right: 10.0, left: 10.0),
+              const EdgeInsets.only(top: 80.0, right: 10.0, left: 10.0),
               child: new Container(
                 decoration: new BoxDecoration(
                   color: Colors.redAccent,
                   borderRadius:
-                      new BorderRadius.all(const Radius.circular(14.0)),
+                  new BorderRadius.all(const Radius.circular(14.0)),
                 ),
                 height: 150.0,
                 width: 200.0,
@@ -67,7 +70,7 @@ class _mainBody extends StatelessWidget {
                       top: 240.0, left: 20.0, right: 20.0),
                   child: new RaisedButton(
                       onPressed: () {
-                        _navigateToConverter(context, 'Sign-In');
+                        _navigateToConverterSignIn(context, 'Sign-In');
                       },
                       color: Colors.redAccent,
                       elevation: 4.0,
@@ -81,7 +84,7 @@ class _mainBody extends StatelessWidget {
                             'Sign-In',
                             textAlign: TextAlign.center,
                             style:
-                                TextStyle(color: Colors.black, fontSize: 30.0),
+                            TextStyle(color: Colors.black, fontSize: 30.0),
                           ),
                         ),
                       )),
@@ -93,7 +96,7 @@ class _mainBody extends StatelessWidget {
                       top: 240.0, left: 20.0, right: 20.0),
                   child: new RaisedButton(
                       onPressed: () {
-                        _navigateToConverter(context, 'Sign-Up');
+                        _navigateToConverterSignUp(context, 'Sign-Up');
                       },
                       color: Colors.redAccent,
                       elevation: 4.0,
@@ -107,7 +110,7 @@ class _mainBody extends StatelessWidget {
                             'Sign-Up',
                             textAlign: TextAlign.center,
                             style:
-                                TextStyle(color: Colors.black, fontSize: 30.0),
+                            TextStyle(color: Colors.black, fontSize: 30.0),
                           ),
                         ),
                       )),
@@ -120,7 +123,7 @@ class _mainBody extends StatelessWidget {
     ]);
   }
 
-  void _navigateToConverter(BuildContext context, String head) {
+  void _navigateToConverterSignIn(BuildContext context, String head) {
     Navigator
         .of(context)
         .push(MaterialPageRoute<Null>(builder: (BuildContext context) {
@@ -132,7 +135,27 @@ class _mainBody extends StatelessWidget {
           ),
           backgroundColor: Colors.green[500],
         ),
-        body: null,
+        body: new signInPage(),
+        backgroundColor: Colors.green[500],
+        resizeToAvoidBottomPadding: false,
+      );
+    }));
+  }
+
+
+  void _navigateToConverterSignUp(BuildContext context, String head) {
+    Navigator
+        .of(context)
+        .push(MaterialPageRoute<Null>(builder: (BuildContext context) {
+      return Scaffold(
+        appBar: AppBar(
+          elevation: 4.0,
+          title: Text(
+            head,
+          ),
+          backgroundColor: Colors.green[500],
+        ),
+        body: new signUpPage(),
         backgroundColor: Colors.green[500],
         resizeToAvoidBottomPadding: false,
       );
