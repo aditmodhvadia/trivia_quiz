@@ -149,7 +149,7 @@ class _mainBody extends StatelessWidget {
         .push(MaterialPageRoute<Null>(builder: (BuildContext context) {
       return Scaffold(
         appBar: AppBar(
-          elevation: 4.0,
+          elevation: 6.0,
           title: Text(
             head,
           ),
