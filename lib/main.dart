@@ -3,6 +3,8 @@ import './pages/sign_up.dart';
 import './pages/sign_in.dart';
 
 
+Color primaryColor = Colors.redAccent;
+
 void main() {
   runApp(MainApp());
 }
@@ -37,7 +39,7 @@ class _mainBody extends StatelessWidget {
               const EdgeInsets.only(top: 80.0, right: 10.0, left: 10.0),
               child: new Container(
                 decoration: new BoxDecoration(
-                  color: Colors.redAccent,
+                  color: primaryColor,
                   borderRadius:
                   new BorderRadius.all(const Radius.circular(14.0)),
                 ),
@@ -72,7 +74,7 @@ class _mainBody extends StatelessWidget {
                       onPressed: () {
                         _navigateToConverterSignIn(context, 'Sign-In');
                       },
-                      color: Colors.redAccent,
+                      color: primaryColor,
                       elevation: 4.0,
                       splashColor: Colors.blueAccent,
                       shape: new RoundedRectangleBorder(
@@ -98,7 +100,7 @@ class _mainBody extends StatelessWidget {
                       onPressed: () {
                         _navigateToConverterSignUp(context, 'Sign-Up');
                       },
-                      color: Colors.redAccent,
+                      color: primaryColor,
                       elevation: 4.0,
                       splashColor: Colors.blueAccent,
                       shape: new RoundedRectangleBorder(
@@ -136,6 +138,25 @@ class _mainBody extends StatelessWidget {
           backgroundColor: Colors.green[500],
         ),
         body: new signInPage(),
+        backgroundColor: Colors.green[500],
+        resizeToAvoidBottomPadding: false,
+      );
+    }));
+  }
+
+  void _navigateToConverter(BuildContext context, String head) {
+    Navigator
+        .of(context)
+        .push(MaterialPageRoute<Null>(builder: (BuildContext context) {
+      return Scaffold(
+        appBar: AppBar(
+          elevation: 4.0,
+          title: Text(
+            head,
+          ),
+          backgroundColor: Colors.green[500],
+        ),
+        body: null,
         backgroundColor: Colors.green[500],
         resizeToAvoidBottomPadding: false,
       );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trivia_quiz/main.dart' as main;
 
 class signInPage extends StatelessWidget
 {
@@ -11,7 +12,7 @@ class signInPage extends StatelessWidget
           child: new Container(
             height: 200.0,
             width: 200.0,
-            color: Colors.red,
+            color: main.primaryColor,
           ),
         ),
         new Center(
