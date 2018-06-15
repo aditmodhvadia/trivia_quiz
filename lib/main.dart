@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import './pages/sign_up.dart';
 import './pages/sign_in.dart';
 
-
 Color primaryColor = Colors.redAccent;
 
 void main() {
@@ -36,12 +35,12 @@ class _mainBody extends StatelessWidget {
           Center(
             child: new Padding(
               padding:
-              const EdgeInsets.only(top: 80.0, right: 10.0, left: 10.0),
+                  const EdgeInsets.only(top: 80.0, right: 10.0, left: 10.0),
               child: new Container(
                 decoration: new BoxDecoration(
                   color: primaryColor,
                   borderRadius:
-                  new BorderRadius.all(const Radius.circular(14.0)),
+                      new BorderRadius.all(const Radius.circular(14.0)),
                 ),
                 height: 150.0,
                 width: 200.0,
@@ -86,7 +85,7 @@ class _mainBody extends StatelessWidget {
                             'Sign-In',
                             textAlign: TextAlign.center,
                             style:
-                            TextStyle(color: Colors.black, fontSize: 30.0),
+                                TextStyle(color: Colors.black, fontSize: 30.0),
                           ),
                         ),
                       )),
@@ -112,7 +111,7 @@ class _mainBody extends StatelessWidget {
                             'Sign-Up',
                             textAlign: TextAlign.center,
                             style:
-                            TextStyle(color: Colors.black, fontSize: 30.0),
+                                TextStyle(color: Colors.black, fontSize: 30.0),
                           ),
                         ),
                       )),
@@ -129,57 +128,17 @@ class _mainBody extends StatelessWidget {
     Navigator
         .of(context)
         .push(MaterialPageRoute<Null>(builder: (BuildContext context) {
-      return Scaffold(
-        appBar: AppBar(
-          elevation: 4.0,
-          title: Text(
-            head,
-          ),
-          backgroundColor: Colors.green[500],
-        ),
-        body: new signInPage(),
-        backgroundColor: Colors.green[500],
-        resizeToAvoidBottomPadding: false,
-      );
+      return signInPage();
     }));
   }
 
-  void _navigateToConverter(BuildContext context, String head) {
-    Navigator
-        .of(context)
-        .push(MaterialPageRoute<Null>(builder: (BuildContext context) {
-      return Scaffold(
-        appBar: AppBar(
-          elevation: 4.0,
-          title: Text(
-            head,
-          ),
-          backgroundColor: Colors.green[500],
-        ),
-        body: null,
-        backgroundColor: Colors.green[500],
-        resizeToAvoidBottomPadding: false,
-      );
-    }));
-  }
 
 
   void _navigateToConverterSignUp(BuildContext context, String head) {
     Navigator
         .of(context)
         .push(MaterialPageRoute<Null>(builder: (BuildContext context) {
-      return Scaffold(
-        appBar: AppBar(
-          elevation: 6.0,
-          title: Text(
-            head,
-          ),
-          backgroundColor: Colors.green[500],
-        ),
-        body: new signUpPage(),
-        backgroundColor: Colors.green[500],
-        resizeToAvoidBottomPadding: false,
-      );
+      return signUpPage();
     }));
   }
 }
