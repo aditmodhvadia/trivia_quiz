@@ -7,7 +7,11 @@ class signInPage extends StatefulWidget {
 }
 
 class SignInPage extends State<signInPage> {
-  String _mymsg = 'Welcome';
+  Color c = Colors.green[500];
+  String emailId, password;
+  static final TextEditingController _user = new TextEditingController();
+  static final TextEditingController _pass = new TextEditingController();
+  String res = 'Pending';
 
   @override
   Widget build(BuildContext context) {
@@ -20,40 +24,79 @@ class SignInPage extends State<signInPage> {
               onPressed: () {
                 print('Help clicked');
                 setState(() {
-                  _mymsg = 'Pressed Help';
+                  c = Colors.teal;
+                  res = 'Help pressed';
                 });
               }),
         ],
         title: Text(
           'Sign-In',
         ),
-        backgroundColor: Colors.green[500],
+        backgroundColor: c,
       ),
-      body: new Stack(
-        children: <Widget>[
-          new Center(
-            child: new Container(
-              height: 200.0,
-              width: 200.0,
-              color: main.primaryColor,
-            ),
-          ),
-          new Center(
-            child: new Container(
-              height: 80.0,
-              width: 80.0,
-              color: Colors.blueAccent,
-              child: new Center(
-                child: Text(
-                  _mymsg,
-                  style: TextStyle(color: Colors.white, fontSize: 18.0),
+      body: new Padding(
+        padding: const EdgeInsets.all(28.0),
+        child: new Center(
+          child: new Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              new TextField(
+                controller: _user,
+                decoration: new InputDecoration(
+                    icon: new Icon(Icons.email),
+                    hintText: 'Enter Registered Email ID'),
+              ),
+              new TextField(
+                controller: _pass,
+                decoration: new InputDecoration(
+                  icon: new Icon(Icons.vpn_key), hintText: 'Enter Password'),
+                  obscureText: true,
+              ),
+              new Padding(
+                padding: const EdgeInsets.only(
+                  left: 36.0,
+                  top: 8.0,
+                  right: 36.0
+                ),
+                child: new RaisedButton(
+                  onPressed: () {
+                    print('Sign In pressed');
+                    setState(() {
+                      //Testing onpress works and gets email id and password
+                        res = _user.text +' ' +_pass.text;
+                        c = Colors.green[500];
+                    });
+                },
+                    color: main.primaryColor,
+                    elevation: 4.0,
+                    splashColor: Colors.blueAccent,
+                    shape: new RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(30.0)),
+                    child: new Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: new Center(
+                        child: Text(
+                          'Sign-In',
+                          textAlign: TextAlign.center,
+                          style:
+                          TextStyle(color: Colors.black, fontSize: 30.0),
+                        ),
+                      ),
+                    )
                 ),
               ),
-            ),
-          )
-        ],
+              new Center(
+                child: new Text(
+                  res,
+                  textAlign: TextAlign.center,
+                ),
+              )
+            ],
+          ),
+        ),
       ),
-      backgroundColor: Colors.green[500],
+      backgroundColor: c,
       resizeToAvoidBottomPadding: false,
     );
   }
