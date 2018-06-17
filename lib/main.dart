@@ -13,6 +13,10 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      routes: <String, WidgetBuilder>{
+        '/sign-in': (BuildContext context) => new signInPage(),
+        '/sign-up': (BuildContext context) => new signUpPage()
+      },
       home: Scaffold(
         appBar: AppBar(
           title: Text('Trivia Quiz'),
@@ -71,7 +75,7 @@ class _mainBody extends StatelessWidget {
                       top: 240.0, left: 20.0, right: 20.0),
                   child: new RaisedButton(
                       onPressed: () {
-                        _navigateToConverterSignIn(context, 'Sign-In');
+                        Navigator.of(context).pushNamed('/sign-in');
                       },
                       color: primaryColor,
                       elevation: 4.0,
@@ -97,7 +101,7 @@ class _mainBody extends StatelessWidget {
                       top: 240.0, left: 20.0, right: 20.0),
                   child: new RaisedButton(
                       onPressed: () {
-                        _navigateToConverterSignUp(context, 'Sign-Up');
+                        Navigator.of(context).pushNamed('/sign-up');
                       },
                       color: primaryColor,
                       elevation: 4.0,
@@ -122,23 +126,5 @@ class _mainBody extends StatelessWidget {
         ],
       )
     ]);
-  }
-
-  void _navigateToConverterSignIn(BuildContext context, String head) {
-    Navigator
-        .of(context)
-        .push(MaterialPageRoute<Null>(builder: (BuildContext context) {
-      return signInPage();
-    }));
-  }
-
-
-
-  void _navigateToConverterSignUp(BuildContext context, String head) {
-    Navigator
-        .of(context)
-        .push(MaterialPageRoute<Null>(builder: (BuildContext context) {
-      return signUpPage();
-    }));
   }
 }
