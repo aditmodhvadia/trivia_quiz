@@ -13,6 +13,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      title: 'Trivia Quiz',
       routes: <String, WidgetBuilder>{
         '/sign-in': (BuildContext context) => new signInPage(),
         '/sign-up': (BuildContext context) => new signUpPage()
@@ -72,10 +73,12 @@ class _mainBody extends StatelessWidget {
               new Expanded(
                 child: new Padding(
                   padding: const EdgeInsets.only(
-                      top: 240.0, left: 20.0, right: 20.0),
+                      top: 200.0, left: 20.0, right: 20.0),
                   child: new RaisedButton(
                       onPressed: () {
                         Navigator.of(context).pushNamed('/sign-in');
+                        //Navigator.of(context).pushNamedAndRemoveUntil('/home', (Route<dynamic> route) => false); this is for
+                        //showing a page directly without the back arrow in the app bar
                       },
                       color: primaryColor,
                       elevation: 4.0,
@@ -89,7 +92,7 @@ class _mainBody extends StatelessWidget {
                             'Sign-In',
                             textAlign: TextAlign.center,
                             style:
-                                TextStyle(color: Colors.black, fontSize: 30.0),
+                                TextStyle(color: Colors.black, fontSize: 22.0),
                           ),
                         ),
                       )),
@@ -98,10 +101,12 @@ class _mainBody extends StatelessWidget {
               new Expanded(
                 child: new Padding(
                   padding: const EdgeInsets.only(
-                      top: 240.0, left: 20.0, right: 20.0),
+                      top: 200.0, left: 20.0, right: 20.0),
                   child: new RaisedButton(
                       onPressed: () {
                         Navigator.of(context).pushNamed('/sign-up');
+                        //Navigator.of(context).pushNamedAndRemoveUntil('/home', (Route<dynamic> route) => false); this is for
+                        //showing a page directly without the back arrow in the app bar
                       },
                       color: primaryColor,
                       elevation: 4.0,
@@ -115,10 +120,11 @@ class _mainBody extends StatelessWidget {
                             'Sign-Up',
                             textAlign: TextAlign.center,
                             style:
-                                TextStyle(color: Colors.black, fontSize: 30.0),
+                                TextStyle(color: Colors.black, fontSize: 22.0),
                           ),
                         ),
-                      )),
+                      )
+                  ),
                 ),
               )
             ],

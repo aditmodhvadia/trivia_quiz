@@ -8,11 +8,11 @@ class signInPage extends StatefulWidget {
 
 class SignInPage extends State<signInPage> {
   Color c = Colors.green[500];
-  String emailId, password;
   static final TextEditingController _user = new TextEditingController();
   static final TextEditingController _pass = new TextEditingController();
   String res = 'Pending';
-  String _errmsg = '';
+  String _passerr;
+  String _usererr;
 
   @override
   Widget build(BuildContext context) {
@@ -44,34 +44,29 @@ class SignInPage extends State<signInPage> {
             children: <Widget>[
               new Padding(
                 padding: const EdgeInsets.all(18.0),
-                child: new TextField(
+                child: new TextFormField(
                   keyboardType: TextInputType.emailAddress,
                   style: new TextStyle(color: Colors.white, fontSize: 22.0),
                   controller: _user,
                   decoration: new InputDecoration(
-                    icon: new Icon(Icons.email),
                     labelText: 'Email ID',
-                    labelStyle:
-                        new TextStyle(color: Colors.white, fontSize: 18.0),
+
+                    errorText: _usererr,
                     border: OutlineInputBorder(
-                      borderRadius:
-                          new BorderRadius.all(const Radius.circular(14.0)),
-                    ),
+                      borderRadius: new BorderRadius.all(const Radius.circular(14.0)),
+                      ),
                   ),
                 ),
               ),
               new Padding(
                 padding: const EdgeInsets.all(18.0),
-                child: new TextField(
+                child: new TextFormField(
                   controller: _pass,
                   keyboardType: TextInputType.text,
                   style: new TextStyle(color: Colors.white, fontSize: 22.0),
                   decoration: new InputDecoration(
-                    icon: new Icon(Icons.vpn_key),
-                    //errorText: _errmsg, //add error text here after resolving the bug of red outline
+                    errorText: _passerr, //add error text here after resolving the bug of red outline
                     labelText: 'Password',
-                    labelStyle:
-                        new TextStyle(color: Colors.white, fontSize: 18.0),
                     border: OutlineInputBorder(
                       borderRadius:
                           new BorderRadius.all(const Radius.circular(14.0)),
@@ -88,10 +83,23 @@ class SignInPage extends State<signInPage> {
                       print('Sign In pressed');
                       setState(() {
                         //Testing onpress works and gets email id and password
-                        res = _user.text + ' ' + _pass.text;
+
                         if (_pass.text.length < 6) {
-                          _errmsg = 'Password should be more than 6 characters';
+                          _passerr = 'Password should be more than 6 characters';
+                          return;
                         }
+
+                        if(_user.text.isEmpty){
+                          _usererr = 'Please enter Email ID';
+                          return ;
+                        }
+                        if(!_user.text.contains('@')){
+                          _usererr = 'Please enter valid Email ID';
+                          return;
+                        }
+                        res = _user.text + ' ' + _pass.text;
+                        _passerr = null;
+                        _usererr = null;
                         c = Colors.green[500];
                       });
                     },
