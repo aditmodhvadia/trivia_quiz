@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "345155801016",
+    "firebase_url": "https://trivia-quiz-37cde.firebaseio.com",
+    "project_id": "trivia-quiz-37cde",
+    "storage_bucket": "trivia-quiz-37cde.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:345155801016:android:4c4beee42ca98b0c",
+        "android_client_info": {
+          "package_name": "com.example.triviaquiz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "345155801016-6mb3ao2jlg85hcfqr37baf6hjbisq7cu.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "345155801016-6mb3ao2jlg85hcfqr37baf6hjbisq7cu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBACPWlHy6y-8-Tqa4Hgrt2hhPmNndXP7Y"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

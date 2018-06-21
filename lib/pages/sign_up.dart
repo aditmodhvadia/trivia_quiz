@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:trivia_quiz/main.dart' as main;
+import 'package:firebase_auth/firebase_auth.dart';
 
 class signUpPage extends StatefulWidget {
   @override
@@ -12,6 +13,9 @@ class SignUpPage extends State<signUpPage> {
   static final TextEditingController _name = new TextEditingController();
   static final TextEditingController _phone = new TextEditingController();
   static final TextEditingController _conpass = new TextEditingController();
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
 
   String _gender='Male';
   String _nameerr, _emailerr, _passerr, _conpasserr;
@@ -314,7 +318,9 @@ class SignUpPage extends State<signUpPage> {
   }
 
   void onGenderChanged(String value){
-    _gender = value;
+    setState(() {
+      _gender = value;
+    });
     print(_gender);
   }
 
