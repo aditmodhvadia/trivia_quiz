@@ -287,6 +287,8 @@ class SignUpPage extends State<signUpPage> {
     _passerr = null;
     _conpasserr = null;
 
+    //assert(_name.text.isNotEmpty);
+
     if(_name.text.isEmpty){
       _nameerr = 'Enter your Full Name';
       return;
@@ -319,9 +321,6 @@ class SignUpPage extends State<signUpPage> {
       _passerr = 'Passwords should match';
     }
 
-
-
-
     /*
     SnackBar snackbar = new SnackBar(content: new Text(_name.text +' '+_user.text));
     Scaffold.of(context).showSnackBar(snackbar);
@@ -337,6 +336,7 @@ class SignUpPage extends State<signUpPage> {
       print(event.snapshot.value);
     });
     */
+
     print('sign up clicked');
 
   }
