@@ -9,12 +9,15 @@ void main(){
     expect(find.text('Sign-In'), findsNWidgets(1));
     expect(find.text('Sign-Up'), findsNWidgets(1));
 
-    await tester.tap(find.text('Sign-Up'));
+    await tester.tap(find.byType(RaisedButton).last);
     await tester.pumpAndSettle();
+
     
     expect(find.byIcon(Icons.person), findsOneWidget);
     expect(find.byIcon(Icons.vpn_key), findsNWidgets(2));
     expect(find.byIcon(Icons.add), findsNothing);
+
+    expect (find.byType(TextField), findsWidgets);
     
 
   });
