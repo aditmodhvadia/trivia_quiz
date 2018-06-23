@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:trivia_quiz/main.dart' as main;
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 class signUpPage extends StatefulWidget {
   @override
@@ -15,6 +16,9 @@ class SignUpPage extends State<signUpPage> {
   static final TextEditingController _conpass = new TextEditingController();
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  DatabaseReference db = FirebaseDatabase.instance.reference();
+
 
 
   String _gender='Male';
@@ -307,12 +311,32 @@ class SignUpPage extends State<signUpPage> {
       _emailerr = 'Enter proper Email ID';
       return;
     }
+    if(_pass.text.length<8){
+      _passerr = 'Password should be atleast 8 characters long';
+    }
+    if(_conpass.text != _pass.text){
+      _conpasserr = 'Passwords should match';
+      _passerr = 'Passwords should match';
+    }
+
+
+
 
     /*
     SnackBar snackbar = new SnackBar(content: new Text(_name.text +' '+_user.text));
     Scaffold.of(context).showSnackBar(snackbar);
     */
 
+    /*print(db.child('test').child('value').toString());
+    
+    db.once().then((DataSnapshot snapshot){
+      print(snapshot.value);
+    });
+
+    db.child('test').onChildChanged.listen((Event event){
+      print(event.snapshot.value);
+    });
+    */
     print('sign up clicked');
 
   }
@@ -324,6 +348,5 @@ class SignUpPage extends State<signUpPage> {
     print(_gender);
   }
 
-  //void email(String value) => _name.text=value;
 
 }
