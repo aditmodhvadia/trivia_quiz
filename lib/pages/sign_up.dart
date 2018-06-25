@@ -274,30 +274,27 @@ class SignUpPage extends State<signUpPage> {
             ),
             new Padding(
               padding: const EdgeInsets.all(18.0),
-              child: Builder(
-                builder: (BuildContext context2){
-                  return new RaisedButton(
-                    onPressed: () {
-                      setState(() {
-                        validate(context2);
-                      });
-                    },
-                    color: main.primaryColor,
-                    elevation: 4.0,
-                    splashColor: Colors.blueAccent,
-                    shape: new RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(30.0)),
-                    child: new Padding(
-                      padding: const EdgeInsets.all(14.0),
-                      child: new Text(
-                        'Sign-Up',
-                        style: TextStyle(color: Colors.black, fontSize: 26.0),
-                      ),
+              child: Builder(builder: (BuildContext context2) {
+                return new RaisedButton(
+                  onPressed: () {
+                    setState(() {
+                      validate(context2);
+                    });
+                  },
+                  color: main.primaryColor,
+                  elevation: 4.0,
+                  splashColor: Colors.blueAccent,
+                  shape: new RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(30.0)),
+                  child: new Padding(
+                    padding: const EdgeInsets.all(14.0),
+                    child: new Text(
+                      'Sign-Up',
+                      style: TextStyle(color: Colors.black, fontSize: 26.0),
                     ),
-                  );
-                }
-
-              ),
+                  ),
+                );
+              }),
             )
           ],
         ),
@@ -324,8 +321,9 @@ class SignUpPage extends State<signUpPage> {
       _nameerr = 'Enter your 10 digit Mobile Number';
       return;
     }
-    if(bDate == 'Select Date of Birth'){
-      SnackBar snackBar = new SnackBar(content: new Text('Enter your Birth Date'));
+    if (bDate == 'Select Date of Birth') {
+      SnackBar snackBar =
+          new SnackBar(content: new Text('Enter your Birth Date'));
       Scaffold.of(context2).showSnackBar(snackBar);
       return;
     }
@@ -363,12 +361,29 @@ class SignUpPage extends State<signUpPage> {
       print(event.snapshot.value);
     });
     */
-    _auth.createUserWithEmailAndPassword(
+    _handleCreateUser(context2)
+        .then((FirebaseUser user) => print(user.email))
+        .catchError((e) => print(e.toString()));
+
+    print('sign up clicked');
+  }
+
+  Future<FirebaseUser> _handleCreateUser(BuildContext context2) async {
+    final FirebaseUser curr = await _auth.createUserWithEmailAndPassword(
         email: _user.text.trim(), password: _pass.text);
 
     _auth.signInWithEmailAndPassword(email: _user.text, password: _pass.text);
+    SnackBar verifyEmailSnackbar =
+        new SnackBar(content: Text('Verify your Email ID and then Sign In'));
+    curr
+        .sendEmailVerification()
+        .whenComplete(
+            () => Scaffold.of(context2).showSnackBar(verifyEmailSnackbar))
+        .whenComplete(() => Future.delayed(Duration(seconds: 3)))
+        .whenComplete(() => Navigator.of(context2).pushNamedAndRemoveUntil(
+            '/sign-in', (Route<dynamic> route) => false));
 
-    print('sign up clicked');
+    return curr;
   }
 
   Future<Null> _selectDate(BuildContext context) async {
@@ -380,7 +395,11 @@ class SignUpPage extends State<signUpPage> {
 
     if (picked != null && picked != _date) {
       setState(() {
-        bDate = picked.day.toString() +'/' +picked.month.toString() +'/' +picked.year.toString();
+        bDate = picked.day.toString() +
+            '/' +
+            picked.month.toString() +
+            '/' +
+            picked.year.toString();
       });
     }
   }
