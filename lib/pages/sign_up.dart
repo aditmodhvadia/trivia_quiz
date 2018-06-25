@@ -274,24 +274,29 @@ class SignUpPage extends State<signUpPage> {
             ),
             new Padding(
               padding: const EdgeInsets.all(18.0),
-              child: new RaisedButton(
-                onPressed: () {
-                  setState(() {
-                    validate();
-                  });
-                },
-                color: main.primaryColor,
-                elevation: 4.0,
-                splashColor: Colors.blueAccent,
-                shape: new RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(30.0)),
-                child: new Padding(
-                  padding: const EdgeInsets.all(14.0),
-                  child: new Text(
-                    'Sign-Up',
-                    style: TextStyle(color: Colors.black, fontSize: 26.0),
-                  ),
-                ),
+              child: Builder(
+                builder: (BuildContext context2){
+                  return new RaisedButton(
+                    onPressed: () {
+                      setState(() {
+                        validate(context2);
+                      });
+                    },
+                    color: main.primaryColor,
+                    elevation: 4.0,
+                    splashColor: Colors.blueAccent,
+                    shape: new RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(30.0)),
+                    child: new Padding(
+                      padding: const EdgeInsets.all(14.0),
+                      child: new Text(
+                        'Sign-Up',
+                        style: TextStyle(color: Colors.black, fontSize: 26.0),
+                      ),
+                    ),
+                  );
+                }
+
               ),
             )
           ],
@@ -302,7 +307,7 @@ class SignUpPage extends State<signUpPage> {
     );
   }
 
-  void validate() {
+  void validate(BuildContext context2) {
     _nameerr = null;
     _emailerr = null;
     _passerr = null;
@@ -317,6 +322,11 @@ class SignUpPage extends State<signUpPage> {
     if (_phone.text.isNotEmpty && _phone.text.length != 10) {
       //Phone number is not required
       _nameerr = 'Enter your 10 digit Mobile Number';
+      return;
+    }
+    if(bDate == 'Select Date of Birth'){
+      SnackBar snackBar = new SnackBar(content: new Text('Enter your Birth Date'));
+      Scaffold.of(context2).showSnackBar(snackBar);
       return;
     }
     if (_user.text.isEmpty) {
@@ -343,11 +353,6 @@ class SignUpPage extends State<signUpPage> {
       _passerr = 'Passwords should match';
     }
 
-    /*
-    SnackBar snackbar = new SnackBar(content: new Text(_name.text +' '+_user.text));
-    Scaffold.of(context).showSnackBar(snackbar);
-    */
-
     /*print(db.child('test').child('value').toString());
     
     db.once().then((DataSnapshot snapshot){
@@ -359,7 +364,7 @@ class SignUpPage extends State<signUpPage> {
     });
     */
     _auth.createUserWithEmailAndPassword(
-        email: _user.text, password: _pass.text);
+        email: _user.text.trim(), password: _pass.text);
 
     _auth.signInWithEmailAndPassword(email: _user.text, password: _pass.text);
 
