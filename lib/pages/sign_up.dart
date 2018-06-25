@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:trivia_quiz/main.dart' as main;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'dart:async';
 
 class signUpPage extends StatefulWidget {
   @override
@@ -19,11 +20,10 @@ class SignUpPage extends State<signUpPage> {
 
   DatabaseReference db = FirebaseDatabase.instance.reference();
 
+  static DateTime _date = new DateTime.now();
 
-
-  String _gender='Male';
+  String _gender = 'Male', bDate = 'Select Date of Birth';
   String _nameerr, _emailerr, _passerr, _conpasserr;
-
 
   @override
   Widget build(BuildContext context) {
@@ -134,26 +134,47 @@ class SignUpPage extends State<signUpPage> {
                         groupValue: _gender,
                         onChanged: (String value) {
                           onGenderChanged(value);
-                        },),
+                        },
+                      ),
                       new Text('Male'),
                       new Radio(
                         value: 'Female',
                         groupValue: _gender,
                         onChanged: (String value) {
                           onGenderChanged(value);
-                        },),
+                        },
+                      ),
                       new Text('Female'),
                       new Radio(
                         value: 'Other',
                         groupValue: _gender,
                         onChanged: (String value) {
                           onGenderChanged(value);
-                        },),
+                        },
+                      ),
                       new Text('Other')
                     ],
                   ),
                 )
               ],
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: new Row(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: new RaisedButton(
+                      onPressed: () => _selectDate(context),
+                      child: Text('Date Of Birth'),
+                    ),
+                  ),
+                  new Text(bDate,
+                      style: TextStyle(
+                        fontSize: 18.0,
+                      ))
+                ],
+              ),
             ),
             new Padding(
               padding: const EdgeInsets.all(8.0),
@@ -254,7 +275,7 @@ class SignUpPage extends State<signUpPage> {
             new Padding(
               padding: const EdgeInsets.all(18.0),
               child: new RaisedButton(
-                onPressed: (){
+                onPressed: () {
                   setState(() {
                     validate();
                   });
@@ -281,7 +302,7 @@ class SignUpPage extends State<signUpPage> {
     );
   }
 
-  void validate(){
+  void validate() {
     _nameerr = null;
     _emailerr = null;
     _passerr = null;
@@ -289,34 +310,35 @@ class SignUpPage extends State<signUpPage> {
 
     //assert(_name.text.isNotEmpty);
 
-    if(_name.text.isEmpty){
+    if (_name.text.isEmpty) {
       _nameerr = 'Enter your Full Name';
       return;
     }
-    if(_phone.text.isNotEmpty && _phone.text.length!=10){//Phone number is not required
+    if (_phone.text.isNotEmpty && _phone.text.length != 10) {
+      //Phone number is not required
       _nameerr = 'Enter your 10 digit Mobile Number';
       return;
     }
-    if(_user.text.isEmpty){
+    if (_user.text.isEmpty) {
       _emailerr = 'Enter your Email ID';
       return;
     }
-    if(_pass.text.isEmpty){
+    if (_pass.text.isEmpty) {
       _passerr = 'Enter Password';
       return;
     }
-    if(_conpass.text.isEmpty){
+    if (_conpass.text.isEmpty) {
       _conpasserr = 'Enter Password';
       return;
     }
-    if(!_user.text.contains('@')){
+    if (!_user.text.contains('@')) {
       _emailerr = 'Enter proper Email ID';
       return;
     }
-    if(_pass.text.length<8){
+    if (_pass.text.length < 8) {
       _passerr = 'Password should be atleast 8 characters long';
     }
-    if(_conpass.text != _pass.text){
+    if (_conpass.text != _pass.text) {
       _conpasserr = 'Passwords should match';
       _passerr = 'Passwords should match';
     }
@@ -336,17 +358,32 @@ class SignUpPage extends State<signUpPage> {
       print(event.snapshot.value);
     });
     */
+    _auth.createUserWithEmailAndPassword(
+        email: _user.text, password: _pass.text);
+
+    _auth.signInWithEmailAndPassword(email: _user.text, password: _pass.text);
 
     print('sign up clicked');
-
   }
 
-  void onGenderChanged(String value){
+  Future<Null> _selectDate(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+        context: context,
+        initialDate: new DateTime(1997),
+        firstDate: new DateTime(1950),
+        lastDate: _date.subtract(Duration(days: 3652)));
+
+    if (picked != null && picked != _date) {
+      setState(() {
+        bDate = picked.day.toString() +'/' +picked.month.toString() +'/' +picked.year.toString();
+      });
+    }
+  }
+
+  void onGenderChanged(String value) {
     setState(() {
       _gender = value;
     });
     print(_gender);
   }
-
-
 }
