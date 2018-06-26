@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:trivia_quiz/main.dart' as main;
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'dart:async';
 
 class signInPage extends StatefulWidget {
   @override
@@ -7,6 +10,10 @@ class signInPage extends StatefulWidget {
 }
 
 class SignInPage extends State<signInPage> {
+  
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  DatabaseReference db = FirebaseDatabase.instance.reference();
+  
   Color c = Colors.green[500];
   static final TextEditingController _user = new TextEditingController();
   static final TextEditingController _pass = new TextEditingController();
@@ -79,30 +86,7 @@ class SignInPage extends State<signInPage> {
                 padding:
                     const EdgeInsets.only(left: 36.0, top: 8.0, right: 36.0),
                 child: new RaisedButton(
-                    onPressed: () {
-                      print('Sign In pressed');
-                      setState(() {
-                        //Testing onpress works and gets email id and password
-
-                        if (_pass.text.length < 6) {
-                          _passerr = 'Password should be more than 6 characters';
-                          return;
-                        }
-
-                        if(_user.text.isEmpty){
-                          _usererr = 'Please enter Email ID';
-                          return ;
-                        }
-                        if(!_user.text.contains('@')){
-                          _usererr = 'Please enter valid Email ID';
-                          return;
-                        }
-                        res = _user.text + ' ' + _pass.text;
-                        _passerr = null;
-                        _usererr = null;
-                        c = Colors.green[500];
-                      });
-                    },
+                    onPressed: () => _signIn(context),
                     color: main.primaryColor,
                     elevation: 4.0,
                     splashColor: Colors.blueAccent,
@@ -135,4 +119,53 @@ class SignInPage extends State<signInPage> {
       resizeToAvoidBottomPadding: false,
     );
   }
+  
+  void _signIn(BuildContext context){
+    print('Sign In pressed');
+    setState(() {
+      _passerr = null;
+      _usererr = null;
+
+      if (_pass.text.length < 6) {
+        _passerr = 'Password should be more than 6 characters';
+        return;
+      }
+
+      if(_user.text.isEmpty){
+        _usererr = 'Please enter Email ID';
+        return ;
+      }
+      if(!_user.text.contains('@')){
+        _usererr = 'Please enter valid Email ID';
+        return;
+      }
+      c = Colors.green[500];
+      
+      _handleSignIn(context).whenComplete((){
+        print('Sign In done in method call');
+      }).catchError((e) {
+        print(e);
+      });
+      
+    });
+  }
+
+  Future<FirebaseUser> _handleSignIn(BuildContext context2) async {
+    final FirebaseUser curr = await _auth.signInWithEmailAndPassword(
+        email: _user.text.trim(), password: _pass.text).catchError((e) => print(e));
+
+    
+    if(curr.isEmailVerified){
+      print('sign in complete');
+    }
+    else{
+      SnackBar verifyEmailSnackbar =
+      new SnackBar(content: Text('Verify your Email ID and then Sign In'));
+      
+      Scaffold.of(context2).showSnackBar(verifyEmailSnackbar);
+    }
+    
+    return curr;
+  }
+  
 }
