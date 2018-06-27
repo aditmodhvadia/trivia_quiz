@@ -32,7 +32,30 @@ class MainApp extends StatelessWidget {
   }
 }
 
-class _mainBody extends StatelessWidget {
+class _mainBody extends StatefulWidget{
+  @override
+  State createState() => new _mainBodyState();
+}
+
+class _mainBodyState extends State<_mainBody> with SingleTickerProviderStateMixin{
+
+  AnimationController _iconAnimController;
+  Animation<double> _iconAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _iconAnimController = new AnimationController(
+      vsync: this,
+      duration: new Duration(milliseconds: 500)
+    );
+    _iconAnimation = new CurvedAnimation(parent: _iconAnimController, curve: Curves.easeInOut);
+    _iconAnimation.addListener(() => this.setState(() {}));
+    _iconAnimController.forward();
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Stack(fit: StackFit.expand, children: <Widget>[
@@ -46,14 +69,14 @@ class _mainBody extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             new FlutterLogo(
-              size: 120.0,
+              size: _iconAnimation.value * 140,
             ),
             new Row(
               children: <Widget>[
                 new Expanded(
                   child: new Padding(
                     padding: const EdgeInsets.only(
-                        top: 200.0, left: 20.0, right: 20.0),
+                        top: 180.0, left: 20.0, right: 20.0),
                     child: new RaisedButton(
                         onPressed: () {
                           Navigator.of(context).pushNamed('/sign-in');
@@ -81,7 +104,7 @@ class _mainBody extends StatelessWidget {
                 new Expanded(
                   child: new Padding(
                     padding: const EdgeInsets.only(
-                        top: 200.0, left: 20.0, right: 20.0),
+                        top: 180.0, left: 20.0, right: 20.0),
                     child: new RaisedButton(
                         onPressed: () {
                           Navigator.of(context).pushNamed('/sign-up');

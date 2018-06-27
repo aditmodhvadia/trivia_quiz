@@ -110,6 +110,7 @@ class SignUpPage extends State<signUpPage> {
                         decoration: new InputDecoration(
                             labelText: 'Contact Number',
                             helperText: '*Optional',
+                            hintText: '10 Digit Number',
                             helperStyle: new TextStyle(
                               color: Colors.redAccent,
                             ),
