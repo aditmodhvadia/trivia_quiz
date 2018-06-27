@@ -54,251 +54,268 @@ class SignUpPage extends State<signUpPage> {
         ),
         backgroundColor: Colors.green[500],
       ),
-      body: new SingleChildScrollView(
-        child: new Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            new Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: new Row(
-                children: <Widget>[
-                  new Padding(
-                    padding: const EdgeInsets.all(14.0),
-                    child: new Icon(
-                      Icons.person,
-                      size: 32.0,
-                    ),
-                  ),
-                  new Expanded(
-                    child: new Padding(
-                      padding: const EdgeInsets.only(top: 7.0, right: 28.0),
-                      child: new TextField(
-                        keyboardType: TextInputType.text,
-                        controller: _name,
-                        decoration: new InputDecoration(
-                            labelText: 'Full Name',
-                            hintText: 'Enter your Full Name',
-                            errorText: _nameerr,
-                            border: OutlineInputBorder(
-                              borderRadius: new BorderRadius.all(
-                                  const Radius.circular(14.0)),
-                            )),
-                      ),
-                    ),
-                  ),
-                ],
+      body: new Stack(
+        fit: StackFit.expand,
+        children: <Widget>[
+          new Image(
+            image: new AssetImage('assets/quiz_bg.jpg'),
+            fit: BoxFit.cover,
+            color: Colors.black87,
+            colorBlendMode: BlendMode.darken,
+          ),
+          new SingleChildScrollView(
+            child: Theme(
+              data: new ThemeData(
+                brightness: Brightness.dark,
+                primarySwatch: Colors.red
               ),
-            ),
-            new Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: new Row(
+              child: new Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   new Padding(
-                    padding: const EdgeInsets.all(14.0),
-                    child: new Icon(
-                      Icons.phone,
-                      size: 32.0,
-                    ),
-                  ),
-                  new Expanded(
-                    child: new Padding(
-                      padding: const EdgeInsets.only(top: 7.0, right: 28.0),
-                      child: new TextField(
-                        keyboardType: TextInputType.phone,
-                        controller: _phone,
-                        decoration: new InputDecoration(
-                            labelText: 'Contact Number',
-                            helperText: '*Optional',
-                            hintText: '10 Digit Number',
-                            helperStyle: new TextStyle(
-                              color: Colors.redAccent,
+                    padding: const EdgeInsets.all(8.0),
+                    child: new Row(
+                      children: <Widget>[
+                        new Padding(
+                          padding: const EdgeInsets.all(14.0),
+                          child: new Icon(
+                            Icons.person,
+                            size: 32.0,
+                          ),
+                        ),
+                        new Expanded(
+                          child: new Padding(
+                            padding: const EdgeInsets.only(top: 7.0, right: 28.0),
+                            child: new TextField(
+                              keyboardType: TextInputType.text,
+                              controller: _name,
+                              decoration: new InputDecoration(
+                                  labelText: 'Full Name',
+                                  hintText: 'Enter your Full Name',
+                                  errorText: _nameerr,
+                                  border: OutlineInputBorder(
+                                    borderRadius: new BorderRadius.all(
+                                        const Radius.circular(14.0)),
+                                  )),
                             ),
-                            border: OutlineInputBorder(
-                              borderRadius: new BorderRadius.all(
-                                  const Radius.circular(14.0)),
-                            )),
-                      ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ],
-              ),
-            ),
-            new Row(
-              children: <Widget>[
-                new Padding(
-                  padding: const EdgeInsets.only(left: 44.0),
-                  child: new Row(
+                  new Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: new Row(
+                      children: <Widget>[
+                        new Padding(
+                          padding: const EdgeInsets.all(14.0),
+                          child: new Icon(
+                            Icons.phone,
+                            size: 32.0,
+                          ),
+                        ),
+                        new Expanded(
+                          child: new Padding(
+                            padding: const EdgeInsets.only(top: 7.0, right: 28.0),
+                            child: new TextField(
+                              keyboardType: TextInputType.phone,
+                              controller: _phone,
+                              decoration: new InputDecoration(
+                                  labelText: 'Contact Number',
+                                  helperText: '*Optional',
+                                  hintText: '10 Digit Number',
+                                  helperStyle: new TextStyle(
+                                    color: Colors.redAccent,
+                                  ),
+                                  border: OutlineInputBorder(
+                                    borderRadius: new BorderRadius.all(
+                                        const Radius.circular(14.0)),
+                                  )),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  new Row(
                     children: <Widget>[
-                      new Radio(
-                        value: 'Male',
-                        groupValue: _gender,
-                        onChanged: (String value) {
-                          onGenderChanged(value);
-                        },
-                      ),
-                      new Text('Male'),
-                      new Radio(
-                        value: 'Female',
-                        groupValue: _gender,
-                        onChanged: (String value) {
-                          onGenderChanged(value);
-                        },
-                      ),
-                      new Text('Female'),
-                      new Radio(
-                        value: 'Other',
-                        groupValue: _gender,
-                        onChanged: (String value) {
-                          onGenderChanged(value);
-                        },
-                      ),
-                      new Text('Other')
+                      new Padding(
+                        padding: const EdgeInsets.only(left: 44.0),
+                        child: new Row(
+                          children: <Widget>[
+                            new Radio(
+                              value: 'Male',
+                              groupValue: _gender,
+                              onChanged: (String value) {
+                                onGenderChanged(value);
+                              },
+                            ),
+                            new Text('Male'),
+                            new Radio(
+                              value: 'Female',
+                              groupValue: _gender,
+                              onChanged: (String value) {
+                                onGenderChanged(value);
+                              },
+                            ),
+                            new Text('Female'),
+                            new Radio(
+                              value: 'Other',
+                              groupValue: _gender,
+                              onChanged: (String value) {
+                                onGenderChanged(value);
+                              },
+                            ),
+                            new Text('Other')
+                          ],
+                        ),
+                      )
                     ],
                   ),
-                )
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: new Row(
-                children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: new RaisedButton(
-                      onPressed: () => _selectDate(context),
-                      child: Text('Date Of Birth'),
+                    padding: const EdgeInsets.all(8.0),
+                    child: new Row(
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: new RaisedButton(
+                            onPressed: () => _selectDate(context),
+                            child: Text('Date Of Birth'),
+                          ),
+                        ),
+                        new Text(bDate,
+                            style: TextStyle(
+                              fontSize: 18.0,
+                            ))
+                      ],
                     ),
                   ),
-                  new Text(bDate,
-                      style: TextStyle(
-                        fontSize: 18.0,
-                      ))
-                ],
-              ),
-            ),
-            new Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: new Row(
-                children: <Widget>[
                   new Padding(
-                    padding: const EdgeInsets.all(14.0),
-                    child: new Icon(
-                      Icons.email,
-                      size: 32.0,
+                    padding: const EdgeInsets.all(8.0),
+                    child: new Row(
+                      children: <Widget>[
+                        new Padding(
+                          padding: const EdgeInsets.all(14.0),
+                          child: new Icon(
+                            Icons.email,
+                            size: 32.0,
+                          ),
+                        ),
+                        new Expanded(
+                          child: new Padding(
+                            padding: const EdgeInsets.only(top: 7.0, right: 28.0),
+                            child: new TextField(
+                              keyboardType: TextInputType.emailAddress,
+                              controller: _user,
+                              decoration: new InputDecoration(
+                                  labelText: 'Email ID',
+                                  errorText: _emailerr,
+                                  border: OutlineInputBorder(
+                                    borderRadius: new BorderRadius.all(
+                                        const Radius.circular(14.0)),
+                                  )),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  new Expanded(
-                    child: new Padding(
-                      padding: const EdgeInsets.only(top: 7.0, right: 28.0),
-                      child: new TextField(
-                        keyboardType: TextInputType.emailAddress,
-                        controller: _user,
-                        decoration: new InputDecoration(
-                            labelText: 'Email ID',
-                            errorText: _emailerr,
-                            border: OutlineInputBorder(
-                              borderRadius: new BorderRadius.all(
-                                  const Radius.circular(14.0)),
-                            )),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            new Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: new Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
                   new Padding(
-                    padding: const EdgeInsets.all(14.0),
-                    child: new Icon(
-                      Icons.vpn_key,
-                      size: 32.0,
+                    padding: const EdgeInsets.all(8.0),
+                    child: new Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        new Padding(
+                          padding: const EdgeInsets.all(14.0),
+                          child: new Icon(
+                            Icons.vpn_key,
+                            size: 32.0,
+                          ),
+                        ),
+                        new Expanded(
+                          child: new Padding(
+                            padding: const EdgeInsets.only(top: 7.0, right: 28.0),
+                            child: new TextField(
+                              obscureText: true,
+                              controller: _pass,
+                              decoration: new InputDecoration(
+                                  labelText: 'Password',
+                                  errorText: _passerr,
+                                  hintText: 'Minimum 6 characters',
+                                  border: OutlineInputBorder(
+                                    borderRadius: new BorderRadius.all(
+                                        const Radius.circular(14.0)),
+                                  )),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  new Expanded(
-                    child: new Padding(
-                      padding: const EdgeInsets.only(top: 7.0, right: 28.0),
-                      child: new TextField(
-                        obscureText: true,
-                        controller: _pass,
-                        decoration: new InputDecoration(
-                            labelText: 'Password',
-                            errorText: _passerr,
-                            hintText: 'Minimum 6 characters',
-                            border: OutlineInputBorder(
-                              borderRadius: new BorderRadius.all(
-                                  const Radius.circular(14.0)),
-                            )),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            new Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: new Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
                   new Padding(
-                    padding: const EdgeInsets.all(14.0),
-                    child: new Icon(
-                      Icons.vpn_key,
-                      size: 32.0,
+                    padding: const EdgeInsets.all(8.0),
+                    child: new Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        new Padding(
+                          padding: const EdgeInsets.all(14.0),
+                          child: new Icon(
+                            Icons.vpn_key,
+                            size: 32.0,
+                          ),
+                        ),
+                        new Expanded(
+                          child: new Padding(
+                            padding: const EdgeInsets.only(top: 7.0, right: 28.0),
+                            child: new TextField(
+                              obscureText: true,
+                              controller: _conpass,
+                              decoration: new InputDecoration(
+                                  labelText: 'Confirm Password',
+                                  hintText: 'Minimum 6 characters',
+                                  errorText: _conpasserr,
+                                  border: OutlineInputBorder(
+                                    borderRadius: new BorderRadius.all(
+                                        const Radius.circular(14.0)),
+                                  )),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  new Expanded(
-                    child: new Padding(
-                      padding: const EdgeInsets.only(top: 7.0, right: 28.0),
-                      child: new TextField(
-                        obscureText: true,
-                        controller: _conpass,
-                        decoration: new InputDecoration(
-                            labelText: 'Confirm Password',
-                            hintText: 'Minimum 6 characters',
-                            errorText: _conpasserr,
-                            border: OutlineInputBorder(
-                              borderRadius: new BorderRadius.all(
-                                  const Radius.circular(14.0)),
-                            )),
-                      ),
-                    ),
-                  ),
+                  new Padding(
+                    padding: const EdgeInsets.all(18.0),
+                    child: Builder(builder: (BuildContext context2) {
+                      return new RaisedButton(
+                        onPressed: () {
+                          setState(() {
+                            validate(context2);
+                          });
+                        },
+                        color: main.primaryColor,
+                        elevation: 4.0,
+                        splashColor: Colors.blueAccent,
+                        shape: new RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(30.0)),
+                        child: new Padding(
+                          padding: const EdgeInsets.all(14.0),
+                          child: new Text(
+                            'Sign-Up',
+                            style: TextStyle(color: Colors.black, fontSize: 26.0),
+                          ),
+                        ),
+                      );
+                    }),
+                  )
                 ],
               ),
             ),
-            new Padding(
-              padding: const EdgeInsets.all(18.0),
-              child: Builder(builder: (BuildContext context2) {
-                return new RaisedButton(
-                  onPressed: () {
-                    setState(() {
-                      validate(context2);
-                    });
-                  },
-                  color: main.primaryColor,
-                  elevation: 4.0,
-                  splashColor: Colors.blueAccent,
-                  shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(30.0)),
-                  child: new Padding(
-                    padding: const EdgeInsets.all(14.0),
-                    child: new Text(
-                      'Sign-Up',
-                      style: TextStyle(color: Colors.black, fontSize: 26.0),
-                    ),
-                  ),
-                );
-              }),
-            )
-          ],
-        ),
+          ),
+        ],
       ),
       backgroundColor: Colors.green[500],
       resizeToAvoidBottomPadding: false,
