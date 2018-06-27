@@ -18,6 +18,9 @@ class MainApp extends StatelessWidget {
         '/sign-in': (BuildContext context) => new signInPage(),
         '/sign-up': (BuildContext context) => new signUpPage()
       },
+      theme: new ThemeData(
+        primarySwatch: Colors.red,
+      ),
       home: Scaffold(
         appBar: AppBar(
           title: Text('Trivia Quiz'),
