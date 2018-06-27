@@ -46,26 +46,23 @@ class _mainBody extends StatelessWidget {
                   const EdgeInsets.only(top: 80.0, right: 10.0, left: 10.0),
               child: new Container(
                 decoration: new BoxDecoration(
-                  color: primaryColor,
+                  color: Colors.red[400],
                   borderRadius:
                       new BorderRadius.all(const Radius.circular(14.0)),
                 ),
-                height: 150.0,
-                width: 200.0,
+                height: 130.0,
+                width: 180.0,
                 child: new Column(
                   children: <Widget>[
-                    new Padding(
-                      padding: const EdgeInsets.only(top: 15.0, bottom: 10.0),
-                      child: Icon(
-                        Icons.cake,
-                        size: 60.0,
+                    Center(
+                      child: new Padding(
+                        padding: const EdgeInsets.only(top: 15.0, bottom: 10.0, right: 10.0),
+                        child: new Image(
+                          image: new AssetImage('assets/flutter_logo.png'),
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
-                    Text(
-                      'App Icon',
-                      style: TextStyle(fontSize: 30.0),
-                      textAlign: TextAlign.center,
-                    )
                   ],
                 ),
               ),
