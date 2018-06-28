@@ -68,6 +68,8 @@ class SignInPage extends State<signInPage> {
                         keyboardType: TextInputType.emailAddress,
                         style: new TextStyle(color: Colors.white, fontSize: 22.0),
                         controller: _user,
+                        autocorrect: true,
+                        autofocus: true,
                         decoration: new InputDecoration(
                           labelText: 'Email ID',
                           hintText: 'Enter your Email ID',
@@ -82,6 +84,7 @@ class SignInPage extends State<signInPage> {
                       padding: const EdgeInsets.all(18.0),
                       child: new TextFormField(
                         controller: _pass,
+                        autocorrect: false,
                         keyboardType: TextInputType.text,
                         style: new TextStyle(color: Colors.white, fontSize: 22.0),
                         decoration: new InputDecoration(
@@ -182,6 +185,13 @@ class SignInPage extends State<signInPage> {
     }
     
     return curr;
+  }
+
+  @override
+  void dispose(){
+    _user.dispose();
+    _pass.dispose();
+    super.dispose();
   }
   
 }

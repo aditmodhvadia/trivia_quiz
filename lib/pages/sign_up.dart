@@ -90,6 +90,8 @@ class SignUpPage extends State<signUpPage> {
                             child: new TextField(
                               keyboardType: TextInputType.text,
                               controller: _name,
+                              autocorrect: true,
+                              autofocus: true,
                               decoration: new InputDecoration(
                                   labelText: 'Full Name',
                                   hintText: 'Enter your Full Name',
@@ -121,6 +123,7 @@ class SignUpPage extends State<signUpPage> {
                             child: new TextField(
                               keyboardType: TextInputType.phone,
                               controller: _phone,
+                              autocorrect: false,
                               decoration: new InputDecoration(
                                   labelText: 'Contact Number',
                                   helperText: '*Optional',
@@ -208,6 +211,7 @@ class SignUpPage extends State<signUpPage> {
                             child: new TextField(
                               keyboardType: TextInputType.emailAddress,
                               controller: _user,
+                              autocorrect: true,
                               decoration: new InputDecoration(
                                   labelText: 'Email ID',
                                   errorText: _emailerr,
@@ -240,6 +244,7 @@ class SignUpPage extends State<signUpPage> {
                             child: new TextField(
                               obscureText: true,
                               controller: _pass,
+                              autocorrect: false,
                               decoration: new InputDecoration(
                                   labelText: 'Password',
                                   errorText: _passerr,
@@ -273,6 +278,7 @@ class SignUpPage extends State<signUpPage> {
                             child: new TextField(
                               obscureText: true,
                               controller: _conpass,
+                              autocorrect: false,
                               decoration: new InputDecoration(
                                   labelText: 'Confirm Password',
                                   hintText: 'Minimum 6 characters',
@@ -428,4 +434,18 @@ class SignUpPage extends State<signUpPage> {
     });
     print(_gender);
   }
+
+  @override
+  void dispose() {
+
+    _user.dispose();
+    _phone.dispose();
+    _pass.dispose();
+    _conpass.dispose();
+    _name.dispose();
+
+    super.dispose();
+  }
+
+
 }
