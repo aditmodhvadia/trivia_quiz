@@ -10,17 +10,16 @@ class signInPage extends StatefulWidget {
 }
 
 class SignInPage extends State<signInPage> {
-
   FocusNode emailFocus = new FocusNode();
   FocusNode passFocus = new FocusNode();
-  
+
   final FirebaseAuth _auth = FirebaseAuth.instance;
   DatabaseReference db = FirebaseDatabase.instance.reference();
-  
+
   Color c = Colors.green[500];
   static final TextEditingController _user = new TextEditingController();
   static final TextEditingController _pass = new TextEditingController();
-  String res = 'Pending';
+  String res;
   String _passerr;
   String _usererr;
 
@@ -69,7 +68,8 @@ class SignInPage extends State<signInPage> {
                       padding: const EdgeInsets.all(18.0),
                       child: new TextFormField(
                         keyboardType: TextInputType.emailAddress,
-                        style: new TextStyle(color: Colors.white, fontSize: 22.0),
+                        style:
+                            new TextStyle(color: Colors.white, fontSize: 22.0),
                         controller: _user,
                         autocorrect: true,
                         focusNode: emailFocus,
@@ -79,7 +79,8 @@ class SignInPage extends State<signInPage> {
                           hintText: 'Enter your Email ID',
                           errorText: _usererr,
                           border: OutlineInputBorder(
-                            borderRadius: new BorderRadius.all(const Radius.circular(14.0)),
+                            borderRadius: new BorderRadius.all(
+                                const Radius.circular(14.0)),
                           ),
                         ),
                       ),
@@ -91,21 +92,23 @@ class SignInPage extends State<signInPage> {
                         autocorrect: false,
                         focusNode: passFocus,
                         keyboardType: TextInputType.text,
-                        style: new TextStyle(color: Colors.white, fontSize: 22.0),
+                        style:
+                            new TextStyle(color: Colors.white, fontSize: 22.0),
                         decoration: new InputDecoration(
-                          errorText: _passerr, //add error text here after resolving the bug of red outline
+                          errorText: _passerr,
+                          //add error text here after resolving the bug of red outline
                           labelText: 'Password',
                           border: OutlineInputBorder(
-                            borderRadius:
-                            new BorderRadius.all(const Radius.circular(14.0)),
+                            borderRadius: new BorderRadius.all(
+                                const Radius.circular(14.0)),
                           ),
                         ),
                         obscureText: true,
                       ),
                     ),
                     new Padding(
-                      padding:
-                      const EdgeInsets.only(left: 36.0, top: 8.0, right: 36.0),
+                      padding: const EdgeInsets.only(
+                          left: 36.0, top: 8.0, right: 36.0),
                       child: new RaisedButton(
                           onPressed: () => _signIn(context),
                           color: main.primaryColor,
@@ -119,7 +122,8 @@ class SignInPage extends State<signInPage> {
                               child: Text(
                                 'Sign-In',
                                 textAlign: TextAlign.center,
-                                style: TextStyle(color: Colors.black, fontSize: 30.0),
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 30.0),
                               ),
                             ),
                           )),
@@ -129,6 +133,7 @@ class SignInPage extends State<signInPage> {
                       child: new Center(
                         child: new Text(
                           res,
+                          style: TextStyle(color: Colors.red),
                         ),
                       ),
                     )
@@ -143,8 +148,8 @@ class SignInPage extends State<signInPage> {
       resizeToAvoidBottomPadding: false,
     );
   }
-  
-  void _signIn(BuildContext context){
+
+  void _signIn(BuildContext context) {
     print('Sign In pressed');
     setState(() {
       _passerr = null;
@@ -156,50 +161,53 @@ class SignInPage extends State<signInPage> {
         return;
       }
 
-      if(_user.text.isEmpty){
+      if (_user.text.isEmpty) {
         _usererr = 'Please enter Email ID';
         FocusScope.of(context).requestFocus(emailFocus);
-        return ;
+        return;
       }
-      if(!_user.text.contains('@')){
+      if (!_user.text.contains('@')) {
         _usererr = 'Please enter valid Email ID';
         FocusScope.of(context).requestFocus(emailFocus);
         return;
       }
       c = Colors.green[500];
-      
-      _handleSignIn(context).whenComplete((){
-        print('Sign In done in method call');
-      }).catchError((e) {
+
+      _handleSignIn(context)
+          .then((FirebaseUser finalUser) => print('done, sign in complete'))//load dashboard from here
+          .catchError((e) {
         print(e);
       });
-      
     });
   }
 
   Future<FirebaseUser> _handleSignIn(BuildContext context2) async {
-    final FirebaseUser curr = await _auth.signInWithEmailAndPassword(
-        email: _user.text.trim(), password: _pass.text).catchError((e) => print(e));
+     _auth
+        .signInWithEmailAndPassword(
+            email: _user.text.trim(), password: _pass.text)
+        .catchError((e) => print(e));
 
-    
-    if(curr.isEmailVerified){
+     FirebaseUser curr = await _auth.currentUser();
+
+    if (curr.isEmailVerified) {
       print('sign in complete');
+    } else {
+//      SnackBar verifyEmailSnackbar =
+//          new SnackBar(content: Text('Verify your Email ID and then Sign In'));
+
+//      Scaffold.of(context2).showSnackBar(verifyEmailSnackbar);
+    setState(() {
+      res = 'Verify your Email ID and then Sign In';
+    });
     }
-    else{
-      SnackBar verifyEmailSnackbar =
-      new SnackBar(content: Text('Verify your Email ID and then Sign In'));
-      
-      Scaffold.of(context2).showSnackBar(verifyEmailSnackbar);
-    }
-    
+
     return curr;
   }
 
   @override
-  void dispose(){
+  void dispose() {
     _user.dispose();
     _pass.dispose();
     super.dispose();
   }
-  
 }

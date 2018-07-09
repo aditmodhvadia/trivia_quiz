@@ -6,7 +6,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'dart:async';
 
-
 class signUpPage extends StatefulWidget {
   @override
   SignUpPage createState() => new SignUpPage();
@@ -25,8 +24,7 @@ class SignUpPage extends State<signUpPage> {
 
   static DateTime _date = new DateTime.now();
 
-  String _gender = 'Male',
-      bDate = 'Select Date of Birth';
+  String _gender = 'Male', bDate = 'Select Date of Birth';
   String _nameerr, _emailerr, _passerr, _conpasserr;
 
   @override
@@ -70,9 +68,7 @@ class SignUpPage extends State<signUpPage> {
           new SingleChildScrollView(
             child: Theme(
               data: new ThemeData(
-                  brightness: Brightness.dark,
-                  primarySwatch: Colors.red
-              ),
+                  brightness: Brightness.dark, primarySwatch: Colors.red),
               child: new Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -90,8 +86,8 @@ class SignUpPage extends State<signUpPage> {
                         ),
                         new Expanded(
                           child: new Padding(
-                            padding: const EdgeInsets.only(
-                                top: 7.0, right: 28.0),
+                            padding:
+                                const EdgeInsets.only(top: 7.0, right: 28.0),
                             child: new TextField(
                               keyboardType: TextInputType.text,
                               controller: _name,
@@ -124,8 +120,8 @@ class SignUpPage extends State<signUpPage> {
                         ),
                         new Expanded(
                           child: new Padding(
-                            padding: const EdgeInsets.only(
-                                top: 7.0, right: 28.0),
+                            padding:
+                                const EdgeInsets.only(top: 7.0, right: 28.0),
                             child: new TextField(
                               keyboardType: TextInputType.phone,
                               controller: _phone,
@@ -213,8 +209,8 @@ class SignUpPage extends State<signUpPage> {
                         ),
                         new Expanded(
                           child: new Padding(
-                            padding: const EdgeInsets.only(
-                                top: 7.0, right: 28.0),
+                            padding:
+                                const EdgeInsets.only(top: 7.0, right: 28.0),
                             child: new TextField(
                               keyboardType: TextInputType.emailAddress,
                               controller: _user,
@@ -247,8 +243,8 @@ class SignUpPage extends State<signUpPage> {
                         ),
                         new Expanded(
                           child: new Padding(
-                            padding: const EdgeInsets.only(
-                                top: 7.0, right: 28.0),
+                            padding:
+                                const EdgeInsets.only(top: 7.0, right: 28.0),
                             child: new TextField(
                               obscureText: true,
                               controller: _pass,
@@ -282,8 +278,8 @@ class SignUpPage extends State<signUpPage> {
                         ),
                         new Expanded(
                           child: new Padding(
-                            padding: const EdgeInsets.only(
-                                top: 7.0, right: 28.0),
+                            padding:
+                                const EdgeInsets.only(top: 7.0, right: 28.0),
                             child: new TextField(
                               obscureText: true,
                               controller: _conpass,
@@ -320,8 +316,8 @@ class SignUpPage extends State<signUpPage> {
                           padding: const EdgeInsets.all(14.0),
                           child: new Text(
                             'Sign-Up',
-                            style: TextStyle(
-                                color: Colors.black, fontSize: 26.0),
+                            style:
+                                TextStyle(color: Colors.black, fontSize: 26.0),
                           ),
                         ),
                       );
@@ -346,11 +342,6 @@ class SignUpPage extends State<signUpPage> {
 
 //    Sample for insreting values to database from shreesh
 // refer the method below as well
-//    db.child('Users').child(_user.text).set({
-//      "Name": _name.text,
-//      "PhoneNo": _phone.text
-//    });
-//    return;
 
 //    db.child('test').child('value').once().then((DataSnapshot snapshot){
 //      print(snapshot.value);
@@ -367,15 +358,9 @@ class SignUpPage extends State<signUpPage> {
 //
 //    });
 
-    User newUser = new User('Adit Modhvadia','aditgoku@gmail.com','9824794164','19 sept');
-
-    db.push().set(newUser.toJson());
-
-    db.once().then((DataSnapshot snapshot){
-      print(User.fromSnapshot(snapshot).EmailId);
-
-    });
-
+//    db.once().then((DataSnapshot snapshot){
+//      print(User.fromSnapshot(snapshot).EmailId);
+//    });
 
     if (_name.text.isEmpty) {
       _nameerr = 'Enter your Full Name';
@@ -388,7 +373,7 @@ class SignUpPage extends State<signUpPage> {
     }
     if (bDate == 'Select Date of Birth') {
       SnackBar snackBar =
-      new SnackBar(content: new Text('Enter your Birth Date'));
+          new SnackBar(content: new Text('Enter your Birth Date'));
       Scaffold.of(context2).showSnackBar(snackBar);
       return;
     }
@@ -416,15 +401,10 @@ class SignUpPage extends State<signUpPage> {
       _passerr = 'Passwords should match';
     }
 
-
-
-
     /*db.child('test').onChildChanged.listen((Event event){
       print(event.snapshot.value);
     });
     */
-
-
 
     _handleCreateUser(context2)
         .then((FirebaseUser user) => print(user.email))
@@ -439,19 +419,26 @@ class SignUpPage extends State<signUpPage> {
 
     _auth.signInWithEmailAndPassword(email: _user.text, password: _pass.text);
     SnackBar verifyEmailSnackbar =
-    new SnackBar(content: Text('Verify your Email ID and then Sign In'));
+        new SnackBar(content: Text('Verify your Email ID and then Sign In'));
     curr
         .sendEmailVerification()
         .whenComplete(
             () => Scaffold.of(context2).showSnackBar(verifyEmailSnackbar))
         .whenComplete(() => Future.delayed(Duration(seconds: 3)))
-        .whenComplete(() =>
-        Navigator.of(context2).pushNamedAndRemoveUntil(
+        .whenComplete(() {
+          db.child('Users').child(_user.text.replaceAll(".", ",")).set({
+            "Name": _name.text,
+            "PhoneNo": _phone.text,
+            "DOB": bDate,
+            "Gender": _gender.toString()
+          });
+        })
+        .whenComplete(() => Future.delayed(Duration(seconds: 1)))
+        .whenComplete(() => Navigator.of(context2).pushNamedAndRemoveUntil(
             '/sign-in', (Route<dynamic> route) => false));
 
     return curr;
   }
-
 
   Future<Null> _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
