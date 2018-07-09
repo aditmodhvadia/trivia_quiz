@@ -55,6 +55,12 @@ class _mainBodyState extends State<_mainBody> with SingleTickerProviderStateMixi
     _iconAnimController.forward();
 
   }
+  @override
+  void dispose() {
+    _iconAnimController.dispose();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

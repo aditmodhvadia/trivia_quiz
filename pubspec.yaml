@@ -10,6 +10,8 @@ dependencies:
   cupertino_icons: ^0.1.2
   firebase_auth:
   firebase_database:
+  firebase_core:
+  english_words:
 
 dev_dependencies:
   flutter_test:

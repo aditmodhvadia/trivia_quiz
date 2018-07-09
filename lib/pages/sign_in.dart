@@ -10,6 +10,9 @@ class signInPage extends StatefulWidget {
 }
 
 class SignInPage extends State<signInPage> {
+
+  FocusNode emailFocus = new FocusNode();
+  FocusNode passFocus = new FocusNode();
   
   final FirebaseAuth _auth = FirebaseAuth.instance;
   DatabaseReference db = FirebaseDatabase.instance.reference();
@@ -69,6 +72,7 @@ class SignInPage extends State<signInPage> {
                         style: new TextStyle(color: Colors.white, fontSize: 22.0),
                         controller: _user,
                         autocorrect: true,
+                        focusNode: emailFocus,
                         autofocus: true,
                         decoration: new InputDecoration(
                           labelText: 'Email ID',
@@ -85,6 +89,7 @@ class SignInPage extends State<signInPage> {
                       child: new TextFormField(
                         controller: _pass,
                         autocorrect: false,
+                        focusNode: passFocus,
                         keyboardType: TextInputType.text,
                         style: new TextStyle(color: Colors.white, fontSize: 22.0),
                         decoration: new InputDecoration(
@@ -147,15 +152,18 @@ class SignInPage extends State<signInPage> {
 
       if (_pass.text.length < 6) {
         _passerr = 'Password should be more than 6 characters';
+        FocusScope.of(context).requestFocus(passFocus);
         return;
       }
 
       if(_user.text.isEmpty){
         _usererr = 'Please enter Email ID';
+        FocusScope.of(context).requestFocus(emailFocus);
         return ;
       }
       if(!_user.text.contains('@')){
         _usererr = 'Please enter valid Email ID';
+        FocusScope.of(context).requestFocus(emailFocus);
         return;
       }
       c = Colors.green[500];
