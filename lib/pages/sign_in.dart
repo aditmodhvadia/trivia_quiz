@@ -192,6 +192,7 @@ class SignInPage extends State<signInPage> {
 
     if (curr.isEmailVerified) {
       print('sign in complete');
+      _pass.clear();
       Navigator.of(context).pushNamed('/dash');
     } else {
 //      SnackBar verifyEmailSnackbar =
@@ -205,5 +206,4 @@ class SignInPage extends State<signInPage> {
 
     return curr;
   }
-
 }
