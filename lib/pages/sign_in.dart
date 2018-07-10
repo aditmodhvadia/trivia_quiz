@@ -19,7 +19,7 @@ class SignInPage extends State<signInPage> {
   Color c = Colors.green[500];
   static final TextEditingController _user = new TextEditingController();
   static final TextEditingController _pass = new TextEditingController();
-  String res;
+  String res = ".";
   String _passerr;
   String _usererr;
 
@@ -155,17 +155,18 @@ class SignInPage extends State<signInPage> {
       _passerr = null;
       _usererr = null;
 
+      if (_user.text.isEmpty) {
+        _usererr = 'Please enter Email ID';
+        FocusScope.of(context).requestFocus(emailFocus);
+        return;
+      }
       if (_pass.text.length < 6) {
         _passerr = 'Password should be more than 6 characters';
         FocusScope.of(context).requestFocus(passFocus);
         return;
       }
 
-      if (_user.text.isEmpty) {
-        _usererr = 'Please enter Email ID';
-        FocusScope.of(context).requestFocus(emailFocus);
-        return;
-      }
+
       if (!_user.text.contains('@')) {
         _usererr = 'Please enter valid Email ID';
         FocusScope.of(context).requestFocus(emailFocus);
@@ -191,6 +192,7 @@ class SignInPage extends State<signInPage> {
 
     if (curr.isEmailVerified) {
       print('sign in complete');
+      Navigator.of(context).pushNamed('/dash');
     } else {
 //      SnackBar verifyEmailSnackbar =
 //          new SnackBar(content: Text('Verify your Email ID and then Sign In'));

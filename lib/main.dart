@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import './pages/sign_up.dart';
 import './pages/sign_in.dart';
+import 'pages/dashBoard.dart';
 
 Color primaryColor = Colors.redAccent;
 
@@ -16,7 +17,8 @@ class MainApp extends StatelessWidget {
       title: 'Trivia Quiz',
       routes: <String, WidgetBuilder>{
         '/sign-in': (BuildContext context) => new signInPage(),
-        '/sign-up': (BuildContext context) => new signUpPage()
+        '/sign-up': (BuildContext context) => new signUpPage(),
+        '/dash': (BuildContext context) => new dash(),
       },
       theme: new ThemeData(
         primarySwatch: Colors.red,
