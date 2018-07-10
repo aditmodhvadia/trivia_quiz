@@ -15,6 +15,7 @@ class dash extends StatelessWidget {
       floatingActionButton: FloatingActionButton(onPressed: (){
 
       },
+        isExtended: true,
       child:Row(
         children: <Widget>[
           Icon(Icons.exit_to_app),

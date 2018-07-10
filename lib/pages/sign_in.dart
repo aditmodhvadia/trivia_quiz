@@ -206,10 +206,4 @@ class SignInPage extends State<signInPage> {
     return curr;
   }
 
-  @override
-  void dispose() {
-    _user.dispose();
-    _pass.dispose();
-    super.dispose();
-  }
 }

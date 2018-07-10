@@ -156,7 +156,7 @@ class SignUpPage extends State<signUpPage> {
                                 onGenderChanged(value);
                               },
                             ),
-                            new Text('Male'),
+                            new Text('Male', style: TextStyle(color: Colors.white)),
                             new Radio(
                               value: 'Female',
                               groupValue: _gender,
@@ -164,7 +164,7 @@ class SignUpPage extends State<signUpPage> {
                                 onGenderChanged(value);
                               },
                             ),
-                            new Text('Female'),
+                            new Text('Female', style: TextStyle(color: Colors.white)),
                             new Radio(
                               value: 'Other',
                               groupValue: _gender,
@@ -172,7 +172,7 @@ class SignUpPage extends State<signUpPage> {
                                 onGenderChanged(value);
                               },
                             ),
-                            new Text('Other')
+                            new Text('Other', style: TextStyle(color: Colors.white))
                           ],
                         ),
                       )
@@ -186,12 +186,13 @@ class SignUpPage extends State<signUpPage> {
                           padding: const EdgeInsets.all(12.0),
                           child: new RaisedButton(
                             onPressed: () => _selectDate(context),
-                            child: Text('Date Of Birth'),
+                            child: Text('Date Of Birth', style: TextStyle(color: Colors.white),),
                           ),
                         ),
                         new Text(bDate,
                             style: TextStyle(
                               fontSize: 18.0,
+                              color: Colors.white
                             ))
                       ],
                     ),
@@ -463,39 +464,5 @@ class SignUpPage extends State<signUpPage> {
       _gender = value;
     });
     print(_gender);
-  }
-
-  @override
-  void dispose() {
-    _user.dispose();
-    _phone.dispose();
-    _pass.dispose();
-    _conpass.dispose();
-    _name.dispose();
-
-    super.dispose();
-  }
-}
-
-class User {
-  String key;
-  String FullName, EmailId, PhoneNo, BirthDate;
-
-  User(this.FullName, this.EmailId, this.PhoneNo, this.BirthDate);
-
-  User.fromSnapshot(DataSnapshot snapshot)
-      : key = snapshot.key,
-        FullName = snapshot.value["FullName"],
-        PhoneNo = snapshot.value["PhoneNo"],
-        BirthDate = snapshot.value["BirthDate"],
-        EmailId = snapshot.value["EmailId"];
-
-  toJson() {
-    return {
-      "FullName": FullName,
-      "PhoneNo": PhoneNo,
-      "BirthDate": BirthDate,
-      "EmailId": EmailId,
-    };
   }
 }
